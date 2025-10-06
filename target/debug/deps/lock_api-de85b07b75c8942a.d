@@ -1,0 +1,10 @@
+C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps\lock_api-de85b07b75c8942a.d: C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\lib.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\mutex.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\remutex.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\rwlock.rs
+
+C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps\liblock_api-de85b07b75c8942a.rlib: C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\lib.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\mutex.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\remutex.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\rwlock.rs
+
+C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps\liblock_api-de85b07b75c8942a.rmeta: C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\lib.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\mutex.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\remutex.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\rwlock.rs
+
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\lib.rs:
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\mutex.rs:
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\remutex.rs:
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\lock_api-0.4.14\src\rwlock.rs:

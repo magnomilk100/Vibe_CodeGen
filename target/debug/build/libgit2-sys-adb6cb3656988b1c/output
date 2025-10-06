@@ -1,0 +1,617 @@
+cargo:rerun-if-env-changed=LIBGIT2_NO_VENDOR
+cargo:rerun-if-env-changed=LIBGIT2_NO_PKG_CONFIG
+cargo:rerun-if-env-changed=PKG_CONFIG_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+cargo:rerun-if-env-changed=PKG_CONFIG
+cargo:rerun-if-env-changed=LIBGIT2_STATIC
+cargo:rerun-if-env-changed=LIBGIT2_DYNAMIC
+cargo:rerun-if-env-changed=PKG_CONFIG_ALL_STATIC
+cargo:rerun-if-env-changed=PKG_CONFIG_ALL_DYNAMIC
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+cargo:rerun-if-env-changed=LIBGIT2_STATIC
+cargo:rerun-if-env-changed=LIBGIT2_DYNAMIC
+cargo:rerun-if-env-changed=PKG_CONFIG_ALL_STATIC
+cargo:rerun-if-env-changed=PKG_CONFIG_ALL_DYNAMIC
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+cargo:warning=failed to probe system libgit2: Could not run `PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags libgit2 'libgit2 >= 1.7.2' 'libgit2 < 1.8.0'`
+The pkg-config command could not be found.
+
+Most likely, you need to install a pkg-config package for your OS.
+
+If you've already installed it, ensure the pkg-config command is one of the
+directories in the PATH environment variable.
+
+If you did not expect this build to link to a pre-installed system library,
+then check documentation of the libgit2-sys crate for an option to
+build the library from source, or disable features or dependencies
+that require pkg-config.
+cargo:rustc-cfg=libgit2_vendored
+libgit2/include\git2\annotated_commit.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\annotated_commit.h
+libgit2/include\git2\apply.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\apply.h
+libgit2/include\git2\attr.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\attr.h
+libgit2/include\git2\blame.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\blame.h
+libgit2/include\git2\blob.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\blob.h
+libgit2/include\git2\branch.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\branch.h
+libgit2/include\git2\buffer.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\buffer.h
+libgit2/include\git2\cert.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\cert.h
+libgit2/include\git2\checkout.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\checkout.h
+libgit2/include\git2\cherrypick.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\cherrypick.h
+libgit2/include\git2\clone.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\clone.h
+libgit2/include\git2\commit.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\commit.h
+libgit2/include\git2\common.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\common.h
+libgit2/include\git2\config.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\config.h
+libgit2/include\git2\credential.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\credential.h
+libgit2/include\git2\credential_helpers.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\credential_helpers.h
+libgit2/include\git2\cred_helpers.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\cred_helpers.h
+libgit2/include\git2\deprecated.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\deprecated.h
+libgit2/include\git2\describe.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\describe.h
+libgit2/include\git2\diff.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\diff.h
+libgit2/include\git2\email.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\email.h
+libgit2/include\git2\errors.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\errors.h
+libgit2/include\git2\experimental.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\experimental.h
+libgit2/include\git2\filter.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\filter.h
+libgit2/include\git2\global.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\global.h
+libgit2/include\git2\graph.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\graph.h
+libgit2/include\git2\ignore.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\ignore.h
+libgit2/include\git2\index.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\index.h
+libgit2/include\git2\indexer.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\indexer.h
+libgit2/include\git2\mailmap.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\mailmap.h
+libgit2/include\git2\merge.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\merge.h
+libgit2/include\git2\message.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\message.h
+libgit2/include\git2\net.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\net.h
+libgit2/include\git2\notes.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\notes.h
+libgit2/include\git2\object.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\object.h
+libgit2/include\git2\odb.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\odb.h
+libgit2/include\git2\odb_backend.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\odb_backend.h
+libgit2/include\git2\oid.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\oid.h
+libgit2/include\git2\oidarray.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\oidarray.h
+libgit2/include\git2\pack.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\pack.h
+libgit2/include\git2\patch.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\patch.h
+libgit2/include\git2\pathspec.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\pathspec.h
+libgit2/include\git2\proxy.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\proxy.h
+libgit2/include\git2\rebase.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\rebase.h
+libgit2/include\git2\refdb.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\refdb.h
+libgit2/include\git2\reflog.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\reflog.h
+libgit2/include\git2\refs.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\refs.h
+libgit2/include\git2\refspec.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\refspec.h
+libgit2/include\git2\remote.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\remote.h
+libgit2/include\git2\repository.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\repository.h
+libgit2/include\git2\reset.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\reset.h
+libgit2/include\git2\revert.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\revert.h
+libgit2/include\git2\revparse.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\revparse.h
+libgit2/include\git2\revwalk.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\revwalk.h
+libgit2/include\git2\signature.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\signature.h
+libgit2/include\git2\stash.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\stash.h
+libgit2/include\git2\status.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\status.h
+libgit2/include\git2\stdint.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\stdint.h
+libgit2/include\git2\strarray.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\strarray.h
+libgit2/include\git2\submodule.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\submodule.h
+libgit2/include\git2\sys\alloc.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\alloc.h
+libgit2/include\git2\sys\commit.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\commit.h
+libgit2/include\git2\sys\commit_graph.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\commit_graph.h
+libgit2/include\git2\sys\config.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\config.h
+libgit2/include\git2\sys\cred.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\cred.h
+libgit2/include\git2\sys\credential.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\credential.h
+libgit2/include\git2\sys\diff.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\diff.h
+libgit2/include\git2\sys\email.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\email.h
+libgit2/include\git2\sys\filter.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\filter.h
+libgit2/include\git2\sys\hashsig.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\hashsig.h
+libgit2/include\git2\sys\index.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\index.h
+libgit2/include\git2\sys\mempack.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\mempack.h
+libgit2/include\git2\sys\merge.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\merge.h
+libgit2/include\git2\sys\midx.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\midx.h
+libgit2/include\git2\sys\odb_backend.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\odb_backend.h
+libgit2/include\git2\sys\openssl.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\openssl.h
+libgit2/include\git2\sys\path.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\path.h
+libgit2/include\git2\sys\refdb_backend.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\refdb_backend.h
+libgit2/include\git2\sys\reflog.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\reflog.h
+libgit2/include\git2\sys\refs.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\refs.h
+libgit2/include\git2\sys\remote.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\remote.h
+libgit2/include\git2\sys\repository.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\repository.h
+libgit2/include\git2\sys\stream.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\stream.h
+libgit2/include\git2\sys\transport.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\sys\transport.h
+libgit2/include\git2\tag.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\tag.h
+libgit2/include\git2\trace.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\trace.h
+libgit2/include\git2\transaction.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\transaction.h
+libgit2/include\git2\transport.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\transport.h
+libgit2/include\git2\tree.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\tree.h
+libgit2/include\git2\types.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\types.h
+libgit2/include\git2\version.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\version.h
+libgit2/include\git2\worktree.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2\worktree.h
+libgit2/include\git2.h => C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\include\git2.h
+OPT_LEVEL = Some(0)
+TARGET = Some(x86_64-pc-windows-msvc)
+CARGO_ENCODED_RUSTFLAGS = Some()
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps;C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug;C:\Users\MagnodaSilvaLeite(t2\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\Git\cmd;C:\Program Files\Kubernetes\Minikube;C:\Program Files\dotnet\;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\Python\Python313\Scripts;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\Python\Python313;C:\Program Files\Java\jdk-11\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Apache Software Foundation\Maven-3.9.0\bin;C:\Program Files\MIT\Kerberos\bin;C:\Program Files (x86)\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\Azure Data Studio\bin;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Users\MagnodaSilvaLeite(t2\.cargo\bin;;c:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\Python\Python313\;C:\Users\MagnodaSilvaLeite(t2\.local\share\solana\install\active_release\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Microsoft\WindowsApps;C:\Windows\System32;C:\Program Files (x86)\MySQL\Connector J 8.0;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\OpenSSL-Win64\bin;c:\users\magnodasilvaleite(t2\.local\bin;c:\users\magnodasilvaleite(t2\appdata\roaming\python\python313\scripts;C:\HashiCorp\terraform_1.3.6_windows_386;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3.1\bin;C:\Program Files (x86)\node-v16.20.0-win-x64;C:\Program Files\Multipass\bin;C:\Users\MagnodaSilvaLeite(t2\AppData\Roaming\npm;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\14\bin;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\Ollama;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\MagnodaSilvaLeite(t2\AppData\Local\Microsoft\WinGet\Links;C:\Users\MagnodaSilvaLeite(t2\.rustup\toolchains\stable-x86_64-pc-windows-msvc\bin)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+HOST = Some(x86_64-pc-windows-msvc)
+cargo:rerun-if-env-changed=CC_x86_64-pc-windows-msvc
+CC_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_x86_64_pc_windows_msvc
+CC_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CC
+HOST_CC = None
+cargo:rerun-if-env-changed=CC
+CC = None
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some(cmpxchg16b,fxsr,sse,sse2,sse3)
+DEBUG = Some(true)
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=HOST_CFLAGS
+HOST_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64_pc_windows_msvc
+CFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64-pc-windows-msvc
+CFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+annotated_commit.c
+apply.c
+attr.c
+attr_file.c
+attrcache.c
+blame.c
+blame_git.c
+blob.c
+branch.c
+buf.c
+checkout.c
+cache.c
+cherrypick.c
+clone.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+commit.c
+commit_graph.c
+commit_list.c
+config.c
+config_cache.c
+config_entries.c
+config_file.c
+config_mem.c
+config_parse.c
+config_snapshot.c
+crlf.c
+delta.c
+describe.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+diff.c
+diff_driver.c
+diff_generate.c
+diff_file.c
+diff_parse.c
+diff_print.c
+diff_tform.c
+diff_stats.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+email.c
+diff_xdiff.c
+errors.c
+fetch.c
+fetchhead.c
+grafts.c
+filter.c
+graph.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+hashsig.c
+ident.c
+idxmap.c
+ignore.c
+index.c
+indexer.c
+iterator.c
+libgit2.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+merge.c
+merge_driver.c
+mailmap.c
+merge_file.c
+message.c
+midx.c
+mwindow.c
+notes.c
+odb.c
+object.c
+object_api.c
+odb_mempack.c
+odb_loose.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+odb_pack.c
+offmap.c
+oid.c
+oidmap.c
+oidarray.c
+pack-objects.c
+parse.c
+pack.c
+patch.c
+patch_generate.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+patch_parse.c
+path.c
+pathspec.c
+reader.c
+proxy.c
+push.c
+rebase.c
+refdb.c
+refdb_fs.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+reflog.c
+refspec.c
+refs.c
+remote.c
+repository.c
+revert.c
+reset.c
+revparse.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+revwalk.c
+signature.c
+stash.c
+status.c
+strarray.c
+submodule.c
+sysdir.c
+tag.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+threadstate.c
+trace.c
+trailer.c
+transaction.c
+transport.c
+tree-cache.c
+tree.c
+worktree.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+date.c
+alloc.c
+filebuf.c
+fs_path.c
+futils.c
+hash.c
+net.c
+pool.c
+posix.c
+pqueue.c
+rand.c
+regexp.c
+runtime.c
+sortedcache.c
+str.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+strmap.c
+thread.c
+tsort.c
+utf8.c
+varint.c
+wildmatch.c
+vector.c
+util.c
+zstream.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+auth.c
+auth_ntlmclient.c
+auth_gssapi.c
+auth_sspi.c
+credential.c
+credential_helpers.c
+git.c
+http.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+httpclient.c
+smart.c
+local.c
+smart_pkt.c
+smart_protocol.c
+ssh.c
+winhttp.c
+mbedtls.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+openssl.c
+openssl_dynamic.c
+openssl_legacy.c
+schannel.c
+registry.c
+stransport.c
+socket.c
+tls.c
+http_parser.c
+xdiffi.c
+xemit.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+xhistogram.c
+xmerge.c
+xpatience.c
+xprepare.c
+xutils.c
+pcre_byte_order.c
+pcre_chartables.c
+pcre_compile.c
+pcre_dfa_exec.c
+pcre_config.c
+pcre_exec.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+pcre_fullinfo.c
+pcre_get.c
+pcre_globals.c
+pcre_jit_compile.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+pcre_maketables.c
+pcre_ord2utf8.c
+pcre_newline.c
+pcre_refcount.c
+pcre_string_utils.c
+pcre_printint.c
+pcre_study.c
+pcre_valid_utf8.c
+pcre_tables.c
+pcre_ucd.c
+pcre_xclass.c
+pcre_version.c
+pcreposix.c
+failalloc.c
+stdalloc.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+error.c
+dir.c
+path_w32.c
+map.c
+posix_w32.c
+precompiled.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+utf-conv.c
+thread.c
+w32_buffer.c
+w32_leakcheck.c
+w32_util.c
+collisiondetect.c
+sha1.c
+ubc_check.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+win32.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+cargo:rerun-if-env-changed=AR_x86_64-pc-windows-msvc
+AR_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=AR_x86_64_pc_windows_msvc
+AR_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_AR
+HOST_AR = None
+cargo:rerun-if-env-changed=AR
+AR = None
+cargo:rerun-if-env-changed=ARFLAGS
+ARFLAGS = None
+cargo:rerun-if-env-changed=HOST_ARFLAGS
+HOST_ARFLAGS = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64_pc_windows_msvc
+ARFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64-pc-windows-msvc
+ARFLAGS_x86_64-pc-windows-msvc = None
+cargo:rustc-link-lib=static=git2
+cargo:rustc-link-search=native=C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out\build
+cargo:root=C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\build\libgit2-sys-adb6cb3656988b1c\out
+cargo:rustc-link-lib=winhttp
+cargo:rustc-link-lib=rpcrt4
+cargo:rustc-link-lib=ole32
+cargo:rustc-link-lib=crypt32
+cargo:rustc-link-lib=secur32
+cargo:rerun-if-changed=libgit2/include
+cargo:rerun-if-changed=libgit2/src
+cargo:rerun-if-changed=libgit2/deps

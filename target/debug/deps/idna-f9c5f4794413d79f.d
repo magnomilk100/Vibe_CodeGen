@@ -1,0 +1,10 @@
+C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps\idna-f9c5f4794413d79f.d: C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\lib.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\deprecated.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\punycode.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\uts46.rs
+
+C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps\libidna-f9c5f4794413d79f.rlib: C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\lib.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\deprecated.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\punycode.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\uts46.rs
+
+C:\MyVibeCodingRust\RUST_GLOBAL_MAG1\vibe_codeGen\target\debug\deps\libidna-f9c5f4794413d79f.rmeta: C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\lib.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\deprecated.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\punycode.rs C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\uts46.rs
+
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\lib.rs:
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\deprecated.rs:
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\punycode.rs:
+C:\Users\MagnodaSilvaLeite(t2\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\idna-1.1.0\src\uts46.rs:
