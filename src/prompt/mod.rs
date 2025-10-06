@@ -35,10 +35,22 @@ Classification:
 - If the task is informational (pure Q&A), set kind:"answer" and fill "answer"; do not include a plan.
 - If the task is a code change (imperatives like add/update/fix/create/remove/rename/refactor/implement/migrate/configure, or mentions files/paths/extensions), you MUST set kind:"plan". Do NOT return "answer" for code-change tasks.
 
-Rules for PLAN:
+Context Awareness:
+- You are given the current project state via JSON. The array `context.files_snapshot` contains objects with:
+  { "path": string, "bytes": number, "truncated": boolean, "content": string }.
+- Use these snapshots to understand what exists today. DO NOT invent structure that contradicts the snapshot set.
+
+PLAN Rules:
 - Produce a minimal, coherent sequence of steps with NO code or file contents (content/patch must be null in PLAN).
 - Prefer src/app paths; never use legacy Pages Router.
-- Keep steps ≤ max_actions and within path/command allowlists."#
+- Keep steps ≤ max_actions and within path/command allowlists.
+
+Dependencies & package.json (MANDATORY IN PLAN):
+- If any step would add or remove a library (e.g., adding a new import that requires a package), include:
+  1) an UPDATE step targeting "package.json" (with content:null in PLAN), and
+  2) a COMMAND step to install deps (e.g., "npm install").
+- If removing a library, include an UPDATE to "package.json" that removes it, plus a COMMAND step that installs to reconcile the lockfile later (we won't touch lockfiles directly).
+- The actual "package.json" contents will be provided/returned in CODEGEN, not PLAN."#
 .to_string()
 }
 
@@ -51,7 +63,10 @@ Return EXACTLY ONE JSON object (no markdown, no prose, no code fences) with:
 - "plan": { "summary": string, "steps": [ create|update|delete|command|test items ] }
 - All create/update items MUST have "content": null and "patch": null in PLAN phase.
 
-Do not include code. Do not include file contents. Do not include diffs. Only list the planned steps."#
+Do not include code. Do not include file contents. Do not include diffs. Only list the planned steps.
+
+Dependencies in PLAN:
+- If dependencies are implicated, include an UPDATE step for "package.json" (content:null) and a COMMAND step (e.g., "npm install")."#
 .to_string()
 }
 
@@ -75,7 +90,9 @@ Files of interest:
 {list}
 {conventions}
 
-Create a minimal coherent plan to implement the intent. DO NOT include code or file contents.",
+Create a minimal coherent plan to implement the intent.
+- Do NOT include code or file contents.
+- When libraries are added/removed, include an UPDATE step for package.json (content:null) and a COMMAND step to run the installer.",
 conventions = conventions())
 }
 
@@ -100,58 +117,32 @@ Return EXACTLY ONE JSON object (no markdown, no prose, no code fences) that conf
 }
 
 Context Awareness (MANDATORY):
-- You are given the current project state in JSON. In particular, the array `context.files_snapshot` contains objects:
+- You are given the current project state in JSON. The array `context.files_snapshot` contains objects:
   { "path": string, "bytes": number, "truncated": boolean, "content": string }.
 - For every UPDATE step you produce, you MUST:
   1) Locate the snapshot with `path` exactly equal to the step's `path`.
   2) Read `content` from that snapshot and treat it as the authoritative base of the file.
   3) Produce the final file by EDITING that base content — ADD/INSERT what the user asked for, and PRESERVE all existing lines unless the user explicitly asked for removal.
   4) Return the full, final file in the step's `content` field.
-- Do NOT fabricate a new file from scratch when a snapshot exists. Never drop existing directives such as `'use client'`, existing imports, component names, or JSX already present in the snapshot base.
-- If a snapshot for a requested path is missing or marked `truncated: true`, limit changes and prefer a minimal `patch` or an explicit note in the `summary` indicating that a full replacement is unsafe without the complete base.
+- Do NOT fabricate a new file from scratch when a snapshot exists. Preserve directives like 'use client', imports, component names, and JSX already present.
+- If a snapshot for a requested path is missing or `truncated: true`, limit changes and prefer a minimal `patch` or note the limitation in 'summary'.
 
-Rules:
-- Generate concrete, ready-to-apply steps for the approved plan.
+Dependencies & package.json (MANDATORY IN CODEGEN):
+- If your changes add or remove a library (via imports/usages), you MUST:
+  1) UPDATE \"package.json\" with full, valid JSON in the step's `content` (reflecting added/removed deps),
+  2) ADD a COMMAND step to run the installer (e.g., \"npm install\").
+- Do not modify lockfiles. The install command will reconcile them.
+- Respect semver ranges already present and keep scripts intact unless absolutely necessary.
+
+Other Rules:
 - Prefer returning full final file contents in 'content'. Only use 'patch' if a correct unified diff is certain and minimal.
-- For any 'update' action, DO NOT delete or regress existing code or functionality unless the user has explicitly asked for removal. When the new functionality renders an existing, overlapping implementation unnecessary, include explicit 'delete' steps for those files/blocks and explain briefly in 'summary'.
-- Never remove existing top-of-file directives like 'use client' or 'use server' unless the user explicitly asks to remove them; preserve them in updated files.
-- src/app is the router root; add 'use client' only where required (components using hooks, state, browser APIs). Keep server components by default.
-- Keep imports minimal; remove unused ones. Use `import type` for type-only imports where appropriate.
-- Keep paths POSIX-style and relative to the repository root. Do not move files unless explicitly directed.
-- Respect allowlists and limits from the user request. Do not touch files outside the requested scope (e.g., .env, lockfiles, CI config, package.json, tsconfig, next.config.js) unless a step explicitly targets them.
-- Maintain TypeScript strictness: no implicit `any`, prefer explicit types.
-- Follow Next.js App Router conventions:
-  - File-based routing under src/app.
-  - Use Route Handlers (`route.ts`) for API endpoints.
-  - Use Server Actions cautiously; mark with 'use server' and avoid client-only APIs in them.
-  - Keep metadata in `layout.tsx`/`page.tsx` where applicable.
-- Component rules:
-  - Client components: include 'use client' at the top; avoid importing server-only modules.
-  - Server components: avoid `useState`, `useEffect`, or browser-only APIs.
-- Styling:
-  - Prefer existing project conventions (e.g., Tailwind). If creating new files, match the prevailing style.
-- Testing:
-  - If adding logic-heavy modules, consider adding a 'test' step with an appropriate command, matching the repo’s tooling where known.
-- Commands:
-  - Use 'command' steps only for necessary setup or generation, with repo root as default `cwd`.
-- File hygiene:
-  - All files UTF-8 with LF line endings, trailing newline at EOF.
-  - Remove dead code and comments that contradict the behavior you implement.
-- Idempotency:
-  - Steps must be re-runnable without harmful side-effects. Creating a file that already exists should be an 'update', not 'create'.
-- Identifiers:
-  - Each step 'id' must be unique, stable, kebab-case (e.g., "create-user-route").
-- Validation:
-  - Ensure imports resolve with correct relative paths.
-  - Ensure new routes do not shadow existing ones unless explicitly requested.
-- Communication:
-  - Be concise in 'summary' and 'title' fields; the JSON is machine-consumed.
-  - Do not include explanations, markdown, or commentary outside the single JSON object.
-- Safety:
-  - Do not introduce secrets or external network calls unless explicitly requested.
-- Performance & bundle size:
-  - Prefer dynamic imports for large, client-only dependencies used below-the-fold.
-  - Avoid adding heavy dependencies unless justified and explicitly requested."#
+- For any 'update', DO NOT delete or regress existing code unless explicitly asked. If removing overlapping code, include explicit DELETE steps and explain briefly in 'summary'.
+- src/app is router root; add 'use client' only for client components.
+- Keep imports minimal; remove unused ones; use `import type` where appropriate.
+- Paths are POSIX-style; do not move files unless directed.
+- Maintain TypeScript strictness.
+- Follow Next.js App Router conventions (route handlers, metadata, etc.).
+- Idempotent steps; ensure re-runs are safe."#
 .to_string()
 }
 
@@ -195,7 +186,8 @@ Files of interest:
 {list}
 {conventions}
 
-Produce the final actionable JSON as specified, with full file contents for created/updated files.",
+Produce the final actionable JSON as specified, with full file contents for created/updated files.
+If libraries are added/removed, also return an updated package.json and include an installation COMMAND step.",
 summary = approved_plan.summary,
 steps = steps,
 list = list,

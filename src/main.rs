@@ -48,11 +48,12 @@ async fn main() -> anyhow::Result<()> {
         log::print_planned_paths(Path::new(&cfg.root), txid);
     }
 
-    // Files we consider most relevant by default. Later we can infer from task.
+    // Always include package.json in the snapshot set sent to the LLM
     let ctx_files = vec![
         "src/app/page.tsx".to_string(),
         "src/app/layout.tsx".to_string(),
         "src/app/components/InteractiveButton.tsx".to_string(),
+        "package.json".to_string(),
     ];
 
     let prov = provider::make_provider(
@@ -63,7 +64,7 @@ async fn main() -> anyhow::Result<()> {
     )?;
 
     // ===== PHASE 1: PLAN =====
-    let plan_files_snapshot = context::snapshot_files(&ctx_files, Path::new(&cfg.root), 4_096);
+    let plan_files_snapshot = context::snapshot_files(&ctx_files, Path::new(&cfg.root), 8_192);
     let mut plan_req = wire::LlmRequest {
         schema_version: "v1".into(),
         mode: wire::Mode::Plan,
@@ -87,11 +88,10 @@ async fn main() -> anyhow::Result<()> {
         instruction: wire::Instruction {
             system: prompt::system_prompt_plan(),
             user: prompt::user_prompt_plan(args.task.as_deref().unwrap_or(""), &ctx_files),
-            developer: Some("Output exactly one JSON object; no markdown/code fences; PLAN phase must not include file contents. If the task is a code-change, you MUST return kind:\"plan\" and not \"answer\".".to_string()),
+            developer: Some("Output exactly one JSON object; PLAN must not include file contents. If libraries are added/removed, include UPDATE package.json (content:null) and a COMMAND step to run installer.".to_string()),
         },
     };
 
-    // First attempt
     let mut plan_resp = prov.send(&plan_req, args.debug).await?;
     let saved_plan = log::save_stage("plan", &plan_req, &plan_resp, txid, &cfg, args.save_request, args.save_response)?;
     if args.debug {
@@ -99,14 +99,13 @@ async fn main() -> anyhow::Result<()> {
         log::print_json_debug("plan", &plan_req, &plan_resp)?;
     }
 
-    // Strict retry if needed
     let need_strict = (matches!(plan_resp.kind, wire::Kind::Answer)
         || plan_resp.plan.as_ref().map(|p| p.steps.is_empty()).unwrap_or(true))
         && is_code_action(args.task.as_deref().unwrap_or(""));
     if need_strict {
         let mut strict_req = plan_req.clone();
         strict_req.instruction.system = prompt::system_prompt_plan_strict();
-        strict_req.instruction.developer = Some("STRICT MODE: This is a code-change task. Return kind:\"plan\" ONLY. Do not include code, content or patches in PLAN.".to_string());
+        strict_req.instruction.developer = Some("STRICT MODE: This is a code-change task. Return kind:\"plan\" ONLY. Do not include code, content or patches in PLAN. If dependencies are implicated, include UPDATE package.json (content:null) and a COMMAND step to run installer.".to_string());
         let strict_resp = prov.send(&strict_req, args.debug).await?;
         let saved_plan_strict = log::save_stage("plan.strict", &strict_req, &strict_resp, txid, &cfg, args.save_request, args.save_response)?;
         if args.debug {
@@ -140,8 +139,7 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // ===== PHASE 2: CODEGEN =====
-    // Provide larger, authoritative file contents during codegen.
-    let codegen_files_snapshot = context::snapshot_files(&ctx_files, Path::new(&cfg.root), 200_000);
+    let codegen_files_snapshot = context::snapshot_files(&ctx_files, Path::new(&cfg.root), 300_000);
     let codegen_req = wire::LlmRequest {
         schema_version: "v1".into(),
         mode: wire::Mode::Codegen,
@@ -165,7 +163,7 @@ async fn main() -> anyhow::Result<()> {
         instruction: wire::Instruction {
             system: prompt::system_prompt_codegen(),
             user: prompt::user_prompt_codegen(&approved_plan, &ctx_files),
-            developer: Some("Return full file contents in 'content' for created/updated files; only use 'patch' if certain. Never remove top-of-file directives like 'use client' unless explicitly asked. For UPDATE tasks, add functionality while preserving existing content. Use context.files_snapshot as the source of truth.".to_string()),
+            developer: Some("Return full file contents in 'content' for created/updated files. If libraries are added/removed, also UPDATE package.json with full JSON and add a COMMAND step to run 'npm install' (or the appropriate installer). Use context.files_snapshot as the source of truth for existing files.".to_string()),
         },
     };
 
@@ -181,14 +179,12 @@ async fn main() -> anyhow::Result<()> {
         None => { println!("\n(no code changes returned by model)\n"); return Ok(()); }
     };
 
-    // Sanitize & dedupe model steps
     let (plan_filtered, warnings) = plan::sanitize(raw_plan);
     if !warnings.is_empty() {
         println!("\nSanitizer warnings:");
         for w in warnings { println!(" - {}", w); }
     }
 
-    // Validate safety & preview (task-aware, additive preview)
     safety::validate(&plan_filtered, &cfg)?;
     let previews = patch::preview(Path::new(&cfg.root), &plan_filtered, args.task.as_deref().unwrap_or(""))?;
     ux::print_preview_dashboard(&previews);
@@ -198,7 +194,6 @@ async fn main() -> anyhow::Result<()> {
         return Ok(());
     }
 
-    // Apply (with additive merge/preservation when appropriate)
     let summary = apply::apply_steps(
         Path::new(&cfg.root),
         &plan_filtered.steps,
