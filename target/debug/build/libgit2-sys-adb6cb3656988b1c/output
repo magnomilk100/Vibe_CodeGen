@@ -232,19 +232,19 @@ diff.c
 diff_driver.c
 diff_file.c
 diff_generate.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 diff_parse.c
 diff_print.c
 diff_stats.c
 diff_tform.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 diff_xdiff.c
 email.c
 errors.c
@@ -253,8 +253,8 @@ fetchhead.c
 filter.c
 grafts.c
 graph.c
-hashsig.c
 ident.c
+hashsig.c
 exit code: 0
 exit code: 0
 exit code: 0
@@ -266,178 +266,178 @@ exit code: 0
 exit code: 0
 exit code: 0
 idxmap.c
-indexer.c
-ignore.c
 index.c
+ignore.c
+indexer.c
 iterator.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 libgit2.c
 mailmap.c
 merge.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 merge_driver.c
-message.c
 merge_file.c
 midx.c
-notes.c
+message.c
 mwindow.c
+notes.c
+odb.c
 object.c
 object_api.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-odb.c
+odb_loose.c
 odb_mempack.c
 odb_pack.c
-odb_loose.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 offmap.c
 oid.c
 oidmap.c
-oidarray.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 pack-objects.c
 pack.c
+oidarray.c
 parse.c
 patch.c
-patch_parse.c
 patch_generate.c
-pathspec.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+patch_parse.c
 path.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
+pathspec.c
 proxy.c
-reader.c
 push.c
+reader.c
 rebase.c
 refdb.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 refdb_fs.c
 reflog.c
 refs.c
 refspec.c
-remote.c
 repository.c
-revert.c
+remote.c
 reset.c
+revert.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 revparse.c
 revwalk.c
-signature.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 stash.c
 status.c
+signature.c
 strarray.c
-sysdir.c
 submodule.c
+sysdir.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 tag.c
 threadstate.c
 trace.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 trailer.c
 transaction.c
 transport.c
+tree-cache.c
 tree.c
 worktree.c
-tree-cache.c
-date.c
 alloc.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
+date.c
 filebuf.c
 fs_path.c
+futils.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 hash.c
 net.c
-futils.c
+posix.c
 pool.c
 pqueue.c
-posix.c
 rand.c
 regexp.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 runtime.c
-sortedcache.c
 str.c
+sortedcache.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 strmap.c
 thread.c
-tsort.c
 utf8.c
-util.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
+tsort.c
 varint.c
+util.c
 vector.c
-zstream.c
 wildmatch.c
-auth_gssapi.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+zstream.c
 auth.c
+auth_gssapi.c
 auth_ntlmclient.c
 auth_sspi.c
 credential.c
@@ -456,11 +456,11 @@ exit code: 0
 exit code: 0
 exit code: 0
 exit code: 0
-smart_pkt.c
 smart.c
 smart_protocol.c
-winhttp.c
 ssh.c
+smart_pkt.c
+winhttp.c
 mbedtls.c
 openssl.c
 openssl_dynamic.c
@@ -479,83 +479,83 @@ schannel.c
 socket.c
 stransport.c
 tls.c
-http_parser.c
 xdiffi.c
+http_parser.c
 xemit.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 xhistogram.c
 xmerge.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 xpatience.c
-xutils.c
 xprepare.c
-pcre_byte_order.c
+xutils.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 pcre_chartables.c
-pcre_compile.c
+pcre_byte_order.c
 pcre_config.c
-pcre_dfa_exec.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-pcre_get.c
-pcre_fullinfo.c
+pcre_compile.c
 pcre_exec.c
-pcre_jit_compile.c
+pcre_dfa_exec.c
+pcre_fullinfo.c
+pcre_get.c
 pcre_globals.c
 pcre_maketables.c
+pcre_jit_compile.c
 pcre_newline.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 pcre_ord2utf8.c
 pcre_printint.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 pcre_refcount.c
 pcre_string_utils.c
 pcre_study.c
 pcre_ucd.c
 pcre_tables.c
 pcre_valid_utf8.c
-pcre_version.c
 pcre_xclass.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 pcreposix.c
+pcre_version.c
 failalloc.c
-dir.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 stdalloc.c
-error.c
+dir.c
 map.c
-path_w32.c
-posix_w32.c
+error.c
 precompiled.c
+posix_w32.c
+path_w32.c
 exit code: 0
 exit code: 0
 exit code: 0
@@ -566,24 +566,24 @@ exit code: 0
 exit code: 0
 exit code: 0
 exit code: 0
+utf-conv.c
 thread.c
 w32_buffer.c
-utf-conv.c
-collisiondetect.c
-w32_util.c
 w32_leakcheck.c
+w32_util.c
+collisiondetect.c
 sha1.c
 ubc_check.c
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
-exit code: 0
 win32.c
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
 exit code: 0
 exit code: 0
 exit code: 0

@@ -76,14 +76,11 @@ pub fn apply_steps(
                 let abs = safe_join(root, path, &cfg.path_allowlist)
                     .with_context(|| format!("update path rejected: {}", path))?;
                 if content.is_none() && patch.is_none() {
-                    // Nothing to do
                     summary.skipped += 1;
                     continue;
                 }
 
-                // Prefer full content updates when provided
                 if let Some(new_content) = content {
-                    // If additive task, merge on top of the old base
                     if abs.exists() && abs.is_file() {
                         let old = fs::read_to_string(&abs).unwrap_or_default();
                         let mut final_content = new_content.clone();
@@ -91,7 +88,7 @@ pub fn apply_steps(
                         // preserve 'use client' if the old file had it
                         final_content = merge::preserve_use_client(Some(&old), &final_content, task);
 
-                        // perform additive merge if task looks additive and file is ts/tsx
+                        // perform additive merge if task looks additive and file is ts/tsx/js
                         let looks_additive = merge::is_additive_task(task)
                             && (path.ends_with(".tsx") || path.ends_with(".ts") || path.ends_with(".js"));
                         if looks_additive {
@@ -108,7 +105,7 @@ pub fn apply_steps(
                             summary.bytes += final_content.as_bytes().len();
                         }
                     } else {
-                        // No old file; this is effectively a create
+                        // No old file; treat as create
                         if dry_run {
                             summary.created += 1;
                             summary.bytes += new_content.as_bytes().len();
@@ -119,8 +116,7 @@ pub fn apply_steps(
                         }
                     }
                 } else if let Some(_patch) = patch {
-                    // Patch-only path — for now, we do a conservative skip (preview handled elsewhere)
-                    // You may integrate a real unified-diff applier here in the future.
+                    // Patch-only path — conservative skip (your preview already showed details)
                     summary.skipped += 1;
                 }
             }
@@ -147,7 +143,6 @@ pub fn apply_steps(
             Step::Command { command, cwd, .. } => {
                 summary.commands += 1;
                 if dry_run {
-                    // synthesize a placeholder result compatible with dashboards
                     let mut placeholder = CmdResult::default();
                     placeholder.command = command.clone();
                     placeholder.cwd = Some(cwd.clone().unwrap_or_else(|| ".".into()));
@@ -175,13 +170,11 @@ pub fn apply_steps(
                     placeholder.via_shell_fallback = false;
                     summary.command_outputs.push(placeholder);
                 } else {
-                    // Re-use allowlisted runner; if tests aren't allowlisted, skip with warning semantics
                     if cfg.command_allowlist.iter().any(|c| c == command) {
                         let res = run_command_allowlisted(command, cfg, None, cfg.timeout_secs)
                             .with_context(|| format!("test command failed: {}", command))?;
                         summary.command_outputs.push(res);
                     } else {
-                        // not in allowlist -> skip, but log a placeholder
                         let mut placeholder = CmdResult::default();
                         placeholder.command = format!("(skipped-not-allowlisted) {}", command);
                         placeholder.cwd = Some(".".into());
@@ -200,29 +193,63 @@ pub fn apply_steps(
     Ok(summary)
 }
 
-/// Join `root` with a relative path, enforcing a simple allowlist prefix guard.
+/// Join `root` with a relative path `rel`, enforcing an allowlist and preventing escape.
+/// Works even when the target file doesn't exist yet (important for CREATE steps)
+/// and when `root` is a relative path (e.g., `..\my-app` on Windows).
 fn safe_join(root: &Path, rel: &str, allowlist: &[String]) -> Result<PathBuf> {
     // quick allowlist prefix check (top-level segments)
     let allowed = allowlist.iter().any(|p| {
-        if p == rel { return true; }
+        if p == rel {
+            return true;
+        }
         rel.starts_with(p.trim_end_matches('/').trim_end_matches('\\'))
     });
     if !allowed {
         return Err(anyhow!("path '{}' not allowed by allowlist", rel));
     }
 
-    let candidate = root.join(rel);
-    let can = candidate
-        .canonicalize()
-        .unwrap_or_else(|_| candidate.clone());
-    let root_can = root
-        .canonicalize()
-        .unwrap_or_else(|_| root.to_path_buf());
+    // Resolve root to an absolute, normalized path
+    let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    let root_abs0 = if root.is_absolute() {
+        root.to_path_buf()
+    } else {
+        cwd.join(root)
+    };
+    // If canonicalize fails (e.g., root might not exist yet), fall back to joined absolute.
+    let root_abs = root_abs0.canonicalize().unwrap_or(root_abs0);
 
-    if !can.starts_with(&root_can) {
+    // Build the target path purely lexically relative to root_abs.
+    // Reject absolute or drive-qualified components in `rel`.
+    use std::path::Component;
+    let mut out = root_abs.clone();
+    let rel_path = Path::new(rel);
+    for comp in rel_path.components() {
+        match comp {
+            Component::Prefix(_) | Component::RootDir => {
+                // e.g., "C:\..." or "/..." should never be allowed in a rel path
+                return Err(anyhow!("path escapes project root: {}", rel));
+            }
+            Component::CurDir => {
+                // no-op
+            }
+            Component::ParentDir => {
+                // prevent popping beyond root_abs by checking before pop
+                if !out.starts_with(&root_abs) || !out.pop() {
+                    return Err(anyhow!("path escapes project root: {}", rel));
+                }
+            }
+            Component::Normal(seg) => {
+                out.push(seg);
+            }
+        }
+    }
+
+    // Final safety: ensure the computed path is under root_abs
+    if !out.starts_with(&root_abs) {
         return Err(anyhow!("path escapes project root: {}", rel));
     }
-    Ok(candidate)
+
+    Ok(out)
 }
 
 /// Atomic write with directory creation.

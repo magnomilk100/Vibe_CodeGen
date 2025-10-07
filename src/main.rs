@@ -48,13 +48,16 @@ async fn main() -> anyhow::Result<()> {
         log::print_planned_paths(Path::new(&cfg.root), txid);
     }
 
-    // Always include package.json in the snapshot set sent to the LLM
-    let ctx_files = vec![
-        "src/app/page.tsx".to_string(),
-        "src/app/layout.tsx".to_string(),
-        "src/app/components/InteractiveButton.tsx".to_string(),
-        "package.json".to_string(),
-    ];
+    let root = Path::new(&cfg.root);
+    let vibe_out = Path::new(&args.vibe_out);
+
+    // NEW: auto-select context files using embeddings index + baseline.
+    let ctx_files = context::select_relevant_files(
+        args.task.as_deref().unwrap_or(""),
+        root,
+        vibe_out,
+        12, // top K from embeddings.jsonl
+    );
 
     let prov = provider::make_provider(
         args.provider.clone(),
@@ -64,7 +67,7 @@ async fn main() -> anyhow::Result<()> {
     )?;
 
     // ===== PHASE 1: PLAN =====
-    let plan_files_snapshot = context::snapshot_files(&ctx_files, Path::new(&cfg.root), 8_192);
+    let plan_files_snapshot = context::snapshot_files(&ctx_files, root, 8_192);
     let mut plan_req = wire::LlmRequest {
         schema_version: "v1".into(),
         mode: wire::Mode::Plan,
@@ -139,7 +142,9 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // ===== PHASE 2: CODEGEN =====
-    let codegen_files_snapshot = context::snapshot_files(&ctx_files, Path::new(&cfg.root), 300_000);
+    // We may re-run selection to pull more context if the plan mentions more files later,
+    // but we keep it stable for now to avoid churn.
+    let codegen_files_snapshot = context::snapshot_files(&ctx_files, root, 300_000);
     let codegen_req = wire::LlmRequest {
         schema_version: "v1".into(),
         mode: wire::Mode::Codegen,
@@ -186,7 +191,7 @@ async fn main() -> anyhow::Result<()> {
     }
 
     safety::validate(&plan_filtered, &cfg)?;
-    let previews = patch::preview(Path::new(&cfg.root), &plan_filtered, args.task.as_deref().unwrap_or(""))?;
+    let previews = patch::preview(root, &plan_filtered, args.task.as_deref().unwrap_or(""))?;
     ux::print_preview_dashboard(&previews);
 
     if !ux::confirm("Proceed to apply these changes?") {
@@ -195,7 +200,7 @@ async fn main() -> anyhow::Result<()> {
     }
 
     let summary = apply::apply_steps(
-        Path::new(&cfg.root),
+        root,
         &plan_filtered.steps,
         args.dry_run,
         &cfg,
