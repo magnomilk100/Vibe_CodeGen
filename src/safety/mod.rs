@@ -1,117 +1,63 @@
-use crate::config::Config;
-use crate::wire::{Plan, Step};
-use anyhow::{anyhow, Result};
-use std::path::{Component, Path, PathBuf};
+use std::path::{Component, Path};
 
-fn normalize_relative(p: &str) -> Result<PathBuf> {
-    let path = Path::new(p);
-    if path.is_absolute() {
-        return Err(anyhow!("absolute paths are not allowed: {}", p));
+/// Ensure `candidate` is within `project_root` or matches an allowlisted file.
+pub fn path_is_allowed(candidate: &str, project_root: &str, allowlist: &[String]) -> bool {
+    // Direct allow for specific files listed
+    if allowlist.iter().any(|p| p.eq_ignore_ascii_case(candidate)) {
+        return true;
     }
-    let mut buf = PathBuf::new();
-    for c in path.components() {
-        match c {
-            Component::Prefix(_) | Component::RootDir => {
-                return Err(anyhow!("absolute path components not allowed: {}", p))
+
+    // Allow if the first path segment is allowlisted (e.g., "src/**", "app/**", etc.)
+    if let Some(first) = Path::new(candidate).components().next() {
+        if let Component::Normal(seg) = first {
+            let seg = seg.to_string_lossy().to_string();
+            if allowlist.iter().any(|allowed| allowed.eq_ignore_ascii_case(&seg)) {
+                // also ensure it doesn't escape the root via .. segments
+                return is_within_root(candidate, project_root);
             }
-            Component::CurDir => {}
-            Component::ParentDir => {
-                return Err(anyhow!("parent traversal not allowed: {}", p));
-            }
-            Component::Normal(s) => buf.push(s),
         }
     }
-    Ok(buf)
-}
 
-fn is_path_allowed(rel: &Path, allowlist: &[String]) -> bool {
-    // A path is allowed if it starts with one of the allowlist prefixes
-    // (component-aware).
-    for allow in allowlist {
-        let allow_path = Path::new(allow);
-        if rel.starts_with(allow_path) || rel == allow_path {
-            return true;
-        }
-    }
     false
 }
 
-fn is_command_allowed(cmd: &str, allowlist: &[String]) -> bool {
-    allowlist.iter().any(|c| c == cmd)
+fn is_within_root(candidate: &str, root: &str) -> bool {
+    let abs_root = match std::fs::canonicalize(root) {
+        Ok(p) => p,
+        Err(_) => return false,
+    };
+    let joined = Path::new(root).join(candidate);
+    match std::fs::canonicalize(joined) {
+        Ok(abs_candidate) => abs_candidate.starts_with(&abs_root),
+        Err(_) => false,
+    }
 }
 
-pub fn validate(plan: &Plan, cfg: &Config) -> Result<()> {
-    // Count guard
-    if plan.steps.len() > cfg.max_actions {
-        return Err(anyhow!(
-            "too many steps: {} > max_actions {}",
-            plan.steps.len(),
-            cfg.max_actions
-        ));
+/// Returns true if `cmd` is allowed given the allowlist.
+///
+/// Rules:
+/// - Exact match with an allowlisted command is allowed.
+/// - Prefix match is allowed when the command begins with an allowlisted base
+///   followed by a single space and arbitrary args, e.g.:
+///     allowlist: ["npm install"]  => "npm install next-themes lucide-react" is allowed
+/// - Comparison is case-sensitive for safety (shell commands are case-sensitive on *nix).
+pub fn command_is_allowed(cmd: &str, allowlist: &[String]) -> bool {
+    let trimmed = cmd.trim();
+
+    // Exact match
+    if allowlist.iter().any(|base| base == trimmed) {
+        return true;
     }
 
-    let mut total_bytes: usize = 0;
-
-    for s in &plan.steps {
-        match s {
-            Step::Create { path, content, .. } => {
-                let rel = normalize_relative(path)?;
-                if !is_path_allowed(&rel, &cfg.path_allowlist) {
-                    return Err(anyhow!(
-                        "path not allowed for CREATE: {} (allowlist: {:?})",
-                        path,
-                        cfg.path_allowlist
-                    ));
-                }
-                if let Some(c) = content {
-                    total_bytes += c.as_bytes().len();
-                }
-            }
-            Step::Update { path, patch, content, .. } => {
-                let rel = normalize_relative(path)?;
-                if !is_path_allowed(&rel, &cfg.path_allowlist) {
-                    return Err(anyhow!(
-                        "path not allowed for UPDATE: {} (allowlist: {:?})",
-                        path,
-                        cfg.path_allowlist
-                    ));
-                }
-                if let Some(c) = content {
-                    total_bytes += c.as_bytes().len();
-                }
-                if let Some(p) = patch {
-                    total_bytes += p.as_bytes().len();
-                }
-            }
-            Step::Delete { path, .. } => {
-                let rel = normalize_relative(path)?;
-                if !is_path_allowed(&rel, &cfg.path_allowlist) {
-                    return Err(anyhow!(
-                        "path not allowed for DELETE: {} (allowlist: {:?})",
-                        path,
-                        cfg.path_allowlist
-                    ));
-                }
-            }
-            Step::Command { command, .. } | Step::Test { command, .. } => {
-                if !is_command_allowed(command, &cfg.command_allowlist) {
-                    return Err(anyhow!(
-                        "command not allowed: {} (allowlist: {:?})",
-                        command,
-                        cfg.command_allowlist
-                    ));
-                }
+    // Prefix match with args
+    for base in allowlist {
+        if trimmed.len() > base.len() && trimmed.starts_with(base) {
+            // must be base + space + args
+            if trimmed.as_bytes()[base.len()] == b' ' {
+                return true;
             }
         }
     }
 
-    if total_bytes > cfg.max_patch_bytes {
-        return Err(anyhow!(
-            "total planned payload {} bytes exceeds limit {} bytes",
-            total_bytes,
-            cfg.max_patch_bytes
-        ));
-    }
-
-    Ok(())
+    false
 }

@@ -51,12 +51,12 @@ async fn main() -> anyhow::Result<()> {
     let root = Path::new(&cfg.root);
     let vibe_out = Path::new(&args.vibe_out);
 
-    // NEW: auto-select context files using embeddings index + baseline.
+    // embeddings-aware selection + baseline (always includes package.json)
     let ctx_files = context::select_relevant_files(
         args.task.as_deref().unwrap_or(""),
         root,
         vibe_out,
-        12, // top K from embeddings.jsonl
+        12,
     );
 
     let prov = provider::make_provider(
@@ -102,13 +102,16 @@ async fn main() -> anyhow::Result<()> {
         log::print_json_debug("plan", &plan_req, &plan_resp)?;
     }
 
+    let is_code = is_code_action(args.task.as_deref().unwrap_or(""));
+    let answer_present = plan_resp.answer.is_some();
     let need_strict = (matches!(plan_resp.kind, wire::Kind::Answer)
-        || plan_resp.plan.as_ref().map(|p| p.steps.is_empty()).unwrap_or(true))
-        && is_code_action(args.task.as_deref().unwrap_or(""));
+        || plan_resp.plan.as_ref().map(|p| p.steps.is_empty()).unwrap_or(true)
+        || (answer_present && is_code));
+
     if need_strict {
         let mut strict_req = plan_req.clone();
         strict_req.instruction.system = prompt::system_prompt_plan_strict();
-        strict_req.instruction.developer = Some("STRICT MODE: This is a code-change task. Return kind:\"plan\" ONLY. Do not include code, content or patches in PLAN. If dependencies are implicated, include UPDATE package.json (content:null) and a COMMAND step to run installer.".to_string());
+        strict_req.instruction.developer = Some("STRICT MODE: This is a code-change task. Return kind:\"plan\" ONLY. Do not include code, content or patches in PLAN. Do not include an 'answer' field. If dependencies are implicated, include UPDATE package.json (content:null) and a COMMAND step to run installer.".to_string());
         let strict_resp = prov.send(&strict_req, args.debug).await?;
         let saved_plan_strict = log::save_stage("plan.strict", &strict_req, &strict_resp, txid, &cfg, args.save_request, args.save_response)?;
         if args.debug {
@@ -119,16 +122,24 @@ async fn main() -> anyhow::Result<()> {
         plan_resp = strict_resp;
     }
 
-    if let Some(ans) = plan_resp.answer {
-        println!("\n=== ANSWER ===\n{}\n\n{}\n", ans.title, ans.content);
+    if matches!(plan_resp.kind, wire::Kind::Answer) {
+        if let Some(ans) = plan_resp.answer {
+            println!("\n=== ANSWER ===\n{}\n\n{}\n", ans.title, ans.content);
+        } else {
+            println!("\n=== ANSWER ===\n(model returned no answer payload)\n");
+        }
         return Ok(());
     }
 
     let mut approved_plan = match plan_resp.plan {
         Some(p) if !p.steps.is_empty() => p,
-        _ => { println!("Model did not return a usable plan."); return Ok(()); }
+        _ => {
+            println!("Model did not return a usable plan.");
+            return Ok(());
+        }
     };
 
+    // Show plan & ask for confirmation (user may edit once)
     ux::show_plan(&approved_plan);
     let mut proceed = ux::confirm("Apply this plan? (enter 'n' to edit)");
     if !proceed {
@@ -142,9 +153,18 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // ===== PHASE 2: CODEGEN =====
-    // We may re-run selection to pull more context if the plan mentions more files later,
-    // but we keep it stable for now to avoid churn.
     let codegen_files_snapshot = context::snapshot_files(&ctx_files, root, 300_000);
+
+    // NEW: pass original task + prior PLAN prompts to CODEGEN user prompt (for rich continuity)
+    let codegen_user = prompt::user_prompt_codegen(
+        args.task.as_deref().unwrap_or(""),
+        &approved_plan,
+        &ctx_files,
+        &plan_req.instruction.system,
+        &plan_req.instruction.user,
+        plan_req.instruction.developer.as_deref(),
+    );
+
     let codegen_req = wire::LlmRequest {
         schema_version: "v1".into(),
         mode: wire::Mode::Codegen,
@@ -167,8 +187,8 @@ async fn main() -> anyhow::Result<()> {
         safety: wire::Safety { path_allowlist: cfg.path_allowlist.clone(), command_allowlist: cfg.command_allowlist.clone() },
         instruction: wire::Instruction {
             system: prompt::system_prompt_codegen(),
-            user: prompt::user_prompt_codegen(&approved_plan, &ctx_files),
-            developer: Some("Return full file contents in 'content' for created/updated files. If libraries are added/removed, also UPDATE package.json with full JSON and add a COMMAND step to run 'npm install' (or the appropriate installer). Use context.files_snapshot as the source of truth for existing files.".to_string()),
+            user: codegen_user,
+            developer: Some("Return full file contents in 'content' for created/updated files; prefer 'content' over 'patch'. Never remove top-of-file directives like 'use client' unless explicitly asked. If libraries are added/removed, also UPDATE package.json (full JSON) and add a COMMAND step to run 'npm install'. Use context.files_snapshot as the source of truth for existing files.".to_string()),
         },
     };
 
